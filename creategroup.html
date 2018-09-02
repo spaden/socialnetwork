@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>create grroups</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <p>Annoymous group chat</p>
+    </nav>
+    <br>
+    <div class="container">
+        <div class="row tos">
+            <div class="jumbotron">
+                <h1>Groups can be accesed only through links</h1>
+                <p>Once created no one can destroy the group server, anyone with link access can enter the group. So share the link only with people you trust.
+                    <hr> Hide the link somewhere else, group link will be deleted automatically from the list of created groups. </p>
+                <p>Group can be accessed only through secret link</p>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <span class="col-md-1 col-lg-1 col-xl-1 col-sm-1"></span>
+            <div class="form-group col-md-9 col-xl-9 col-sm-9 col-lg-9">
+                <label for="usr">Group Name:</label>
+                <input type="text" class="form-control" id="grpname">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <span class="col-md-1 col-lg-1 col-xl-1 col-sm-1"></span>
+            <div class="form-group col-md-9 col-xl-9 col-sm-9 col-lg-">
+                <label for="comment">Group Description: </label>
+                <textarea class="form-control" rows="5" id="grpinfo"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <span class="col-md-3 col-lg-3 col-xl-3 col-sm-3"></span>
+            <button class="btn btn-dark col-md-4 col-lg-4 col-sm-4 col-xl-4" id="crtgrp">Create group</button>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+            <span class="col-md-3 col-sm-3 col-xl-3 col-lg-3"></span>
+            <p id="savethis"></p>
+            <a href="#" id="gplink" class="col-sm-8 col-lg-8 col-xl-8 col-xs-8"></a>
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById("crtgrp").onclick = function() {
+            var a = document.getElementById("grpname").value;
+            var b = document.getElementById("grpinfo").value;
+
+
+            if (a.length == 0 || b.length == 0) {
+                alert("please enter a valid groupname and group info");
+            } else if (a.length != 0 && b.length != 0) {
+                creategroup(a, b);
+            }
+
+        };
+
+        function creategroup(grpname) {
+            alert(grpname);
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    var myObj = JSON.parse(this.responseText);
+
+                    if (myObj.info == "success") {
+                        alert("group created successfully check the link below");
+                        document.getElementById("gplink").href = myObj.link;
+                        alert(myObj.link);
+                        document.getElementById("gplink").innerText = myObj.link;
+                        document.getElementById("savethis").innerHTML = "Save this somewhere else before it gets erased by us";
+
+                    } else {
+                        alert("error occured");
+                    }
+
+                }
+            };
+            xmlhttp.open("GET", "crtgrp.php?grpname=" + grpname, true);
+            xmlhttp.send();
+        }
+    </script>
+</body>
+
+</html>

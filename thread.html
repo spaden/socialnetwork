@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+    <style>
+        .tpp {
+            margin-top: 5em;
+        }
+        
+        .out1 {
+            box-shadow: 0 0 3px #888888;
+        }
+        
+        .icn {
+            margin-left: 2.5em;
+            height: 1.8em;
+        }
+        
+        .out2 {
+            margin-top: 1em;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.17em;
+        }
+        
+        .pp3 {
+            margin-left: 2em;
+        }
+        
+        .out2,
+        .out3 {
+            margin-left: 1em;
+        }
+        
+        .out3 {
+            margin-left: 3em;
+        }
+        
+        .mn1 {
+            border-top: 1px solid black;
+            margin-top: 1.7em;
+            margin-bottom: 0.5em;
+        }
+        
+        .out4 {
+            border-top: 1px solid #CD6155;
+        }
+        
+        .lik {
+            margin-left: 2em;
+        }
+        
+        .ter {
+            display: none;
+        }
+        
+        #hdfm {
+            display: none;
+            background-color: #D5F5E3;
+            opacity: 0.89;
+        }
+        
+        .cmnt {
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">theMisfits</a>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Be in your limit nerds</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container fixed-top tpp">
+        <div class="row">
+            <div class="out1 col-md-12 col-lg-12 col-xl-12 col-sm-12">
+
+                <h4 class="out2" id="topicname"></h4>
+
+                <p class="out3" id="topicdesc"></p>
+
+                <div class="mn1">
+                    <img class="icn" id="btlike" src="https://png.icons8.com/ios/50/000000/up.png" />
+                    <span id="likes"></span>
+                    <img class="icn dw" id="btdisklikes" src="https://png.icons8.com/ios/50/000000/down.png" />
+                    <span id="dislikes"></span>
+                    <img class="icn flag" id="flagme" src="https://png.icons8.com/ios/50/000000/disapprove.png" />
+                    <span class="lik" id="dt"></span>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <br>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="row">
+                <span class="col-md-3 col-lg-3 col-sm-3 col-xl-3"></span>
+                <div class="col-md-9 col-sm-9 col-xl-9 col-lg-9" id="insert">
+                    <br><br>
+                </div>
+
+            </div>
+        </div>
+        <div class="container fixed-bottom">
+            <div class="row" id="shfm">
+                <span class="col-md-2 col-lg-2 col-xl-2 col-sm-2"></span>
+
+                <button class="btn btn-info col-md-6 col-lg-6 col-xl-6" id="swfm">Add a thought</button>
+            </div>
+            <div class="row" id="hdfm">
+                <span class="col-md-1 col-lg-1 col-xl-1 col-sm-1"></span>
+                <div class="form-group col-md-10 col-xl-10 col-sm-10 col-lg-10">
+                    <br>
+                    <label for="comment">Your opinion on this topic:</label>
+                    <textarea class="form-control" rows="5" id="comment" placeholder="type description here"></textarea>
+                    <br>
+                </div>
+
+            </div>
+            <div class="row ter" id="yo">
+                <span class="col-md-4 col-lg-4 col-xl-4 col-sm-4"></span>
+
+                <button class="btn btn-danger col-md-5 col-lg-5 col-sm-5 col-xl-5" id="addtp">Post</button>
+
+            </div>
+            <div class="row">
+                <br>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+        <script>
+            var lik, dik, flag;
+            var topicid;
+            window.onload = function() {
+                // alert(sessionStorage.getItem("topicid"));
+                getcomm(sessionStorage.getItem("topicid"));
+                lik = document.getElementById("btlike");
+                dik = document.getElementById("btdisklikes");
+                flag = document.getElementById("flagme");
+                lik.value = sessionStorage.getItem("id");
+                dik.value = sessionStorage.getItem("id");
+                flag.value = sessionStorage.getItem("id");
+                setme();
+
+                document.getElementById("topicname").innerText = sessionStorage.getItem("topicname");
+                document.getElementById("topicdesc").innerHTML = sessionStorage.getItem("topicdec");
+                document.getElementById("likes").innerHTML = sessionStorage.getItem("likes");
+                document.getElementById("dislikes").innerHTML = sessionStorage.getItem("dislikes");
+                document.getElementById("dt").innerText = sessionStorage.getItem("dtime");
+                topicid = sessionStorage.getItem("topicid");
+
+                //alert(sessionStorage.getItem("topicname"));
+            };
+
+            function setme() {
+                document.getElementById("swfm").onclick = function() {
+                    document.getElementById("swfm").style.display = "none";
+                    document.getElementById("hdfm").style.display = "block";
+                    document.getElementById("yo").style.display = "block";
+                };
+                document.getElementById("addtp").onclick = function() {
+                    document.getElementById("hdfm").style.display = "none";
+                    document.getElementById("yo").style.display = "none";
+                    document.getElementById("swfm").style.display = "block";
+                    addpt(sessionStorage.getItem("topicid"));
+
+                };
+                lik.onclick = function() {
+                    sendlike(this.value);
+                };
+                dik.onclick = function() {
+                    sendislike(this.value);
+                };
+                flag.onclick = function() {
+                    flag(this.value);
+                };
+            }
+
+            function sendlike(id) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // alert(this.responseText);
+                        var x = document.getElementById("likes").innerHTML;
+                        x++;
+                        document.getElementById("likes").innerHTML = x;
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?upid=" + id, true);
+                xmlhttp.send();
+            }
+
+            function sendislike(id) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var x = document.getElementById("dislikes").innerHTML;
+                        x++;
+                        document.getElementById("dislikes").innerHTML = x;
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?dwid=" + id, true);
+                xmlhttp.send();
+            }
+
+            function flag(id) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        alert("Thanks for the feedback we will look into it");
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?flid=" + id, true);
+                xmlhttp.send();
+            }
+
+            function addpt(topicid) {
+                var xmlhttp = new XMLHttpRequest();
+                var message = document.getElementById("comment").value;
+                var ins = document.getElementById("insert");
+
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //alert(this.responseText);
+                        ins.innerHTML = " ";
+                        ins.appendChild(document.createElement("br"));
+                        ins.appendChild(document.createElement("br"));
+                        getcomm(sessionStorage.getItem("topicid"));
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?thrid=" + topicid + "&thrcm=" + message, true);
+                xmlhttp.send();
+            }
+
+            function getcomm(topicid) {
+                var xmlhttp = new XMLHttpRequest();
+                /// var message = document.getElementById("comment").value;
+                var ins = document.getElementById("insert");
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //alert(this.responseText);
+                        var myObj = JSON.parse(this.responseText);
+                        for (var i = 0; i < myObj.products.length; i++) {
+                            var card = document.createElement("div");
+                            card.className = "card";
+                            var cardbody = document.createElement("div");
+                            cardbody.className = "card-body";
+                            var pp = document.createElement("p");
+                            pp.innerText = myObj.products[i].tpbranch;
+                            cardbody.appendChild(pp);
+
+                            var outdiv4 = document.createElement("div");
+                            outdiv4.className = "out4";
+                            var pp = document.createElement("span");
+                            if (myObj.products[i].likes) {
+                                pp.innerText = myObj.products[i].likes;
+                            } else {
+                                pp.innerText = 0;
+                            }
+                            var pp2 = document.createElement("span");
+                            if (myObj.products[i].dislikes) {
+                                pp2.innerText = myObj.products[i].dislikes;
+                            } else {
+                                pp2.innerText = 0;
+                            }
+
+
+                            var pp3 = document.createElement("span");
+                            pp3.className = "lik";
+
+                            if (myObj.products[i].dtime) {
+                                pp3.innerText = myObj.products[i].dtime;
+                            } else {
+                                pp3.innerText = 0;
+                            }
+
+                            var img1 = document.createElement("img");
+                            img1.value = myObj.products[i].id;
+                            img1.className = "icn";
+                            img1.src = "https://png.icons8.com/ios/50/000000/up.png";
+                            var img2 = document.createElement("img");
+                            img2.value = myObj.products[i].id;
+                            img2.className = "icn dw";
+                            img2.src = "https://png.icons8.com/ios/50/000000/down.png";
+
+                            var img3 = document.createElement("img");
+                            img3.value = myObj.products[i].id;
+                            img3.className = "icn flag";
+                            img3.src = "https://png.icons8.com/ios/50/000000/disapprove.png";
+
+                            img1.onclick = function() {
+                                cmlike(this.value);
+                            };
+
+                            img2.onclick = function() {
+                                downme(this.value);
+                            };
+
+                            img3.onclick = function() {
+                                cmflag(this.value);
+                            };
+
+                            outdiv4.appendChild(img1);
+                            outdiv4.appendChild(pp);
+
+                            outdiv4.appendChild(img2);
+                            outdiv4.appendChild(pp2);
+
+                            outdiv4.appendChild(img3);
+                            //outdiv4.appendChild(but);
+                            outdiv4.appendChild(pp3);
+                            cardbody.appendChild(outdiv4);
+
+
+
+                            card.appendChild(cardbody);
+                            ins.appendChild(card);
+                            ins.appendChild(document.createElement("br"));
+
+
+                        }
+
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?gtspid=" + topicid, true);
+                xmlhttp.send();
+
+            }
+
+            function cmlike(id) {
+                var ins = document.getElementById("insert");
+                var xmlhttp = new XMLHttpRequest();
+                // var message = document.getElementById("comment").value;
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //alert(this.responseText);
+                        ins.innerHTML = " ";
+                        ins.appendChild(document.createElement("br"));
+                        ins.appendChild(document.createElement("br"));
+                        getcomm(sessionStorage.getItem("topicid"));
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?cmlkid=" + id, true);
+                xmlhttp.send();
+            }
+
+            function downme(id) {
+                var ins = document.getElementById("insert");
+                var xmlhttp = new XMLHttpRequest();
+                // var message = document.getElementById("comment").value;
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //alert(this.responseText);
+                        ins.innerHTML = " ";
+                        ins.appendChild(document.createElement("br"));
+                        ins.appendChild(document.createElement("br"));
+                        getcomm(sessionStorage.getItem("topicid"));
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?cmdkid=" + id, true);
+                xmlhttp.send();
+            }
+
+            function cmflag(id) {
+                var ins = document.getElementById("insert");
+                var xmlhttp = new XMLHttpRequest();
+                // var message = document.getElementById("comment").value;
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //alert(this.responseText);
+                        ins.innerHTML = " ";
+                        ins.appendChild(document.createElement("br"));
+                        ins.appendChild(document.createElement("br"));
+                        getcomm(sessionStorage.getItem("topicid"));
+                    }
+                };
+                xmlhttp.open("GET", "redinsta.php?cmflid=" + id, true);
+                xmlhttp.send();
+            }
+        </script>
+</body>
+
+</html>

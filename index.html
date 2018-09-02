@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/gif/png/jpg" href="icon.jpg">
+
+    <link rel="stylesheet" href="styles/home.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+
+    <title>themisfits</title>
+    <style>
+        .headimg {
+            width: 100%;
+            margin-top: 5%;
+        }
+        
+        .ict {
+            height: auto;
+            opacity: 0.9;
+        }
+        
+        #tpp {
+            margin-top: 1.8%;
+            height: 30%;
+            background-image: url("icon.jpg");
+            background-size: cover;
+        }
+        
+        .sec {
+            margin-top: 5%;
+            background-color: #34495E;
+        }
+        
+        .sec2 {
+            margin-top: 2%;
+            background-color: #34495E;
+        }
+        
+        .yo {
+            margin-top: 5%;
+            font-size: 90%;
+        }
+        
+        .paytm {
+            height: 5.8em;
+            width: 10.8em;
+        }
+        
+        p {
+            margin-top: 10%;
+            font-size: 90%;
+        }
+        
+        i {
+            align-content: center;
+        }
+        
+        .tt {
+            height: 40px;
+            width: 100%;
+        }
+        
+        .yy {
+            margin-top: 2%;
+            margin-left: 2%;
+            background-color: #808B96;
+            height: auto;
+        }
+        
+        .fm {
+            margin-top: 10%;
+        }
+        
+        .blin {
+            background-color: #2ECC71;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tpp">
+        <div class="container">
+            <div class="row ict">
+                <span class="col-md-1 col-sm-1 col-lg-3 col-xs-1"></span>
+
+                <div class="col-md-10 col-sm-10 col-lg-6 col-xs-10">
+
+                    <img src="icon.jpg" class="img-thumbnail headimg" style="height:85%;">
+
+                </div>
+                <span class="col-md-1 col-sm-1 col-lg-3 col-xs-1"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container sec">
+
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-10 col-xs-10 sec2">
+                <div class="list-group">
+                    <li class="list-group-item">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <i> <h5><p>A social network with annonymity as a feature</p></h5></i>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Share your profile and see what others think about you</li>
+                                    <br>
+                                    <li>Create a group that is annonymous to both the members and the outside world.</li>
+                                    <br>
+                                    <li>Broach a new topic with the outside world annonymously and see what others think about this.</li>
+                                    <br>
+                                    <li>Flag a comment or a post if you find it too offensive.</li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item">
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h5>
+                                    <p>"Give man a mask and he will tell the truth" is the cliche we believe in.</p>
+                                </h5>
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1 tt">
+
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-10 yy">
+                <p style="margin-top: 10%; align-content: center; ">What are you waiting for? Sign up right away</p>
+                <div class="form-group fm">
+                    <input type="text" id="usname" class="form-control" placeholder="username" required>
+                </div>
+                <div class="form-group fm">
+                    <input type="password" id="uspass" class="form-control" placeholder="password" required>
+                </div>
+                <div class="form-group fm">
+
+                    <input type="email" id="usemail" class="form-control" placeholder="your email" required>
+
+                </div>
+
+
+
+
+                <button class="btn" id="signtest" style="background-color:aquamarine;margin-left:35%;
+                        margin-top:10%; margin-bottom:5%;">Sign Up</button>
+                <button class="btn" id="login" style="background-color:aquamarine;margin-left:35%;
+                        margin-top:5%; margin-bottom:10%;">Old user</button>
+
+
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <br><br>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        var usname, uspass, usemail, usnumber;
+        document.getElementById("login").onclick = function() {
+            loadme("login.html");
+        }
+        document.getElementById("signtest").onclick = function() {
+            usname = document.getElementById("usname").value;
+            uspass = document.getElementById("uspass").value;
+            usemail = document.getElementById("usemail").value;
+            //usnumber = document.getElementById("usnumber").value;
+            if (usname.length == 0 || usemail.length == 0 || uspass.length == 0) {
+                alert("please fill the required fields");
+            } else {
+                senddata();
+            }
+
+
+        };
+
+        function senddata() {
+            var cml;
+            if (window.XMLHttpRequest) {
+                cml = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                cml = new ActiveXObject("Microsoft.CMLHTTP");
+            }
+            cml.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.response);
+                    if (this.response == "success") {
+                        alert("Please login using email and password");
+                        loadme("login.html");
+                    } else {
+                        alert("Please check your internet connection strength or try again");
+                    }
+                }
+            };
+            cml.open("GET", "signuptest.php?" + "usname=" + usname + "&uspass=" + uspass + "&usemail=" + usemail, true);
+            // cml.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            //var x = 'usname=' + usname + '&uspass=' + uspass + '&usemail=' + usemail + '&usnumber=' + usnumber;
+            cml.send();
+        }
+
+        function loadme(newloaction) {
+            window.location.href = newloaction;
+        }
+    </script>
+</body>
+
+</html>

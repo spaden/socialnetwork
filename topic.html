@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+    <style>
+        .tdd {
+            margin-left: 2em;
+        }
+        
+        .tpp {
+            height: 2.5em;
+        }
+        
+        #hdfm {
+            display: none;
+        }
+        
+        #addtp {
+            display: none;
+        }
+        
+        #messages {
+            background-color: #E8F5F3;
+        }
+        
+        .out1 {
+            background-color: #E8F9F6;
+            opacity: 0.89;
+            box-shadow: 0 0 3px #888888;
+        }
+        
+        .icn {
+            margin-left: 2.5em;
+            height: 1.8em;
+        }
+        
+        .out2 {
+            margin-top: 1em;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.17em;
+        }
+        
+        .pp3 {
+            margin-left: 2em;
+        }
+        
+        .out2,
+        .out3 {
+            margin-left: 1em;
+        }
+        
+        .out3 {
+            margin-left: 3em;
+        }
+        
+        .lfme {
+            box-shadow: 0 0 3px #888888;
+            margin-left: 3em;
+            margin-right: 2em;
+        }
+        
+        #hdfm {
+            background-color: #B4E9D7;
+            opacity: 0.87;
+        }
+        
+        #swfm {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">theMisfits</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+         </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item tdd">
+                    <button class="nav-link btn btn-primary tpp" id="newtopics">Topics</button>
+                </li>
+                <li class="nav-item tdd">
+                    <button class="nav-link btn btn-warning tpp" id="trending">Trending Topics</button>
+                </li>
+                <li class="nav-item tdd">
+                    <button class="nav-link btn btn-secondary tpp" id="pics">Pictures</a>
+            </li>
+           
+                <li class="nav-item tdd">
+                    <button class="nav-link btn btn-info tpp" id="profile">Your profile</button>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <br><br><br>
+    <div class="container tss">
+        <div class="row" id="messages">
+            <span class="col-md-1 col-lg-1 col-sm-1 col-xl-1"></span>
+            <div class="col-md-10 col-sm-10 col-xl-10 col-lg-10" id="insert">
+                <br><br>
+            </div>
+            <span class="col-md-1 col-lg-1 col-sm-1 col-xl-1"></span>
+        </div>
+        <div class="row">
+            <br><br><br><br>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="container fixed-bottom">
+        <div class="row" id="shfm">
+            <span class="col-md-3 col-lg-3 col-xl-3 col-sm-3"></span>
+
+            <button class="btn btn-info col-md-6 col-lg-6 col-xl-6" id="swfm">Add a topic</button>
+        </div>
+        <div class="row" id="hdfm">
+            <span class="col-md-2 col-lg-2 col-xl-2 col-sm-2"></span>
+            <div class="form-group col-md-10 col-xl-10 col-sm-10 col-lg-10">
+                <label for="tstmesg">Topic name:</label>
+                <input type="text" class="form-control" placeholder="Your message" id="tstmesg">
+                <br>
+                <label for="comment">Topic Description:</label>
+                <textarea class="form-control" rows="5" id="comment" placeholder="type description here"></textarea>
+            </div>
+
+        </div>
+        <div class="row ter">
+            <span class="col-md-2 col-lg-2 col-xl-2 col-sm-2"></span>
+            <button class="btn btn-danger col-md-6 col-lg-6 col-sm-6 col-xl-6" id="addtp">Post</button>
+
+        </div>
+        <div class="row">
+            <br>
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script>
+        var shfm, hdfm, addtp, tstmesg, newtopic;
+        window.onload = function() {
+            //alert("called");
+            getme();
+            document.getElementById("trending").onclick = function() {
+                alert("Only topics with likes  + dislikes more than 20 will be displayed in here");
+                trending();
+            };
+            document.getElementById("newtopics").onclick = function() {
+                getme();
+            };
+            document.getElementById("pics").onclick = function() {
+                window.location.href = "couple.html";
+
+            };
+            document.getElementById("profile").onclick = function() {
+                window.location.href = "profile.html";
+            };
+
+            shfm = document.getElementById("swfm");
+            addtp = document.getElementById("addtp");
+            tstmesg = document.getElementById("tstmesg");
+            newtopic = document.getElementById("comment");
+            document.getElementById("addtp").onclick = function() {
+                postp();
+            };
+            shfm.onclick = function() {
+                hdfm = document.getElementById("hdfm");
+                hdfm.style.display = "block";
+                shfm.style.display = "none";
+                addtp.style.display = "block";
+            };
+        };
+
+        function postp() {
+            var tpnm = tstmesg.value;
+            var tpdsc = newtopic.value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
+                    hdfm.style.display = "none";
+                    addtp.style.display = "none";
+                    shfm.style.display = "block";
+
+                    var ins = document.getElementById("insert");
+                    ins.innerHTML = " ";
+                    getme();
+                }
+            };
+            xmlhttp.open("GET", "redinsta.php?tpnm=" + tpnm + "&tpdsc=" + tpdsc, true);
+            xmlhttp.send();
+        }
+
+        function getme() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    var ins = document.getElementById("insert");
+                    ins.innerHTML = " ";
+                    if (myObj.info == "success") {
+                        for (var i = 0; i < myObj.products.length; i++) {
+                            var outdiv1 = document.createElement("div");
+
+                            outdiv1.className = "out1";
+                            var brk = document.createElement("br");
+                            var outdiv2 = document.createElement("h5");
+                            outdiv2.className = "out2";
+                            outdiv2.innerText = myObj.products[i].topicname;
+
+                            var outdiv3 = document.createElement("p");
+                            outdiv3.className = "out3";
+                            outdiv3.innerText = myObj.products[i].topicdesc;
+
+                            var outdiv4 = document.createElement("div");
+                            outdiv4.className = "out4";
+
+                            var pp = document.createElement("span");
+                            if (myObj.products[i].likes) {
+                                pp.innerText = myObj.products[i].likes;
+                            } else {
+                                pp.innerText = 0;
+                            }
+                            var pp2 = document.createElement("span");
+                            if (myObj.products[i].dislikes) {
+                                pp2.innerText = myObj.products[i].dislikes;
+                            } else {
+                                pp2.innerText = 0;
+                            }
+
+
+                            var pp3 = document.createElement("span");
+                            pp3.className = "lik";
+
+                            if (myObj.products[i].dtime) {
+                                pp3.innerText = myObj.products[i].dtime;
+                            } else {
+                                pp3.innerText = 0;
+                            }
+
+
+                            var img1 = document.createElement("img");
+                            img1.value = myObj.products[i].id;
+                            img1.className = "icn";
+                            img1.src = "https://png.icons8.com/ios/50/000000/up.png";
+                            var img2 = document.createElement("img");
+                            img2.value = myObj.products[i].id;
+                            img2.className = "icn dw";
+                            img2.src = "https://png.icons8.com/ios/50/000000/down.png";
+
+                            var img3 = document.createElement("img");
+                            img3.value = myObj.products[i].id;
+                            img3.className = "icn flag";
+                            img3.src = "https://png.icons8.com/ios/50/000000/disapprove.png";
+
+
+                            var but = document.createElement("button");
+                            but.className = "btn lfme";
+                            but.innerHTML = "view topic";
+                            but.value = myObj.products[i].topicid;
+                            but.onclick = function() {
+                                //alert(this.value);
+                                viewme(this.value);
+                            };
+
+                            img1.onclick = function() {
+                                sendlike(this.value);
+                            };
+
+                            img2.onclick = function() {
+                                sendislike(this.value);
+                            };
+
+                            img3.onclick = function() {
+                                flag(this.value);
+                            };
+
+
+                            outdiv4.appendChild(img1);
+                            outdiv4.appendChild(pp);
+
+                            outdiv4.appendChild(img2);
+                            outdiv4.appendChild(pp2);
+
+                            outdiv4.appendChild(img3);
+                            outdiv4.appendChild(but);
+                            outdiv4.appendChild(pp3);
+
+
+                            outdiv1.appendChild(outdiv2);
+                            outdiv1.appendChild(brk);
+                            outdiv1.appendChild(outdiv3);
+                            outdiv1.appendChild(brk);
+                            outdiv1.appendChild(outdiv4);
+                            outdiv1.appendChild(brk);
+
+                            ins.appendChild(outdiv1);
+                            // ins.appendChild(brk);
+                        }
+                    }
+                }
+            };
+            xmlhttp.open("GET", "redinsta.php?gtpic=hey", true);
+            xmlhttp.send();
+        }
+
+        function sendlike(id) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var ins = document.getElementById("insert");
+                    ins.innerHTML = " ";
+                    getme();
+                }
+            };
+            xmlhttp.open("GET", "redinsta.php?upid=" + id, true);
+            xmlhttp.send();
+        }
+
+        function sendislike(id) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var ins = document.getElementById("insert");
+                    ins.innerHTML = " ";
+                    getme();
+                }
+            };
+            xmlhttp.open("GET", "redinsta.php?dwid=" + id, true);
+            xmlhttp.send();
+        }
+
+        function flag(id) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var ins = document.getElementById("insert");
+                    ins.innerHTML = " ";
+                    getme();
+                }
+            };
+            xmlhttp.open("GET", "redinsta.php?flid=" + id, true);
+            xmlhttp.send();
+        }
+
+        function viewme(topicid) {
+            //alert("called");
+            sessionStorage.setItem("topicid", topicid);
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    if (myObj.info = "success") {
+                        //alert("success");
+                        sessionStorage.setItem("id", myObj.products[0].id);
+                        sessionStorage.setItem("topicname", myObj.products[0].topicname);
+                        sessionStorage.setItem("topicdec", myObj.products[0].topicdec);
+                        sessionStorage.setItem("likes", myObj.products[0].likes);
+                        sessionStorage.setItem("dislikes", myObj.products[0].dislikes);
+                        sessionStorage.setItem("dtime", myObj.products[0].dtime);
+
+                        //alert(sessionStorage.getItem("dtime"));
+                        window.location.href = "thread.html";
+
+                    }
+                }
+            };
+            xmlhttp.open("GET", "redinsta.php?mntopic=" + topicid, true);
+            xmlhttp.send();
+        }
+
+        function trending() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    var ins = document.getElementById("insert");
+                    ins.innerHTML = " ";
+                    if (myObj.info == "success") {
+                        for (var i = 0; i < myObj.products.length; i++) {
+                            var outdiv1 = document.createElement("div");
+
+                            outdiv1.className = "out1";
+                            var brk = document.createElement("br");
+                            var outdiv2 = document.createElement("h5");
+                            outdiv2.className = "out2";
+                            outdiv2.innerText = myObj.products[i].topicname;
+
+                            var outdiv3 = document.createElement("p");
+                            outdiv3.className = "out3";
+                            outdiv3.innerText = myObj.products[i].topicdesc;
+
+                            var outdiv4 = document.createElement("div");
+                            outdiv4.className = "out4";
+
+                            var pp = document.createElement("span");
+                            if (myObj.products[i].likes) {
+                                pp.innerText = myObj.products[i].likes;
+                            } else {
+                                pp.innerText = 0;
+                            }
+                            var pp2 = document.createElement("span");
+                            if (myObj.products[i].dislikes) {
+                                pp2.innerText = myObj.products[i].dislikes;
+                            } else {
+                                pp2.innerText = 0;
+                            }
+
+
+                            var pp3 = document.createElement("span");
+                            pp3.className = "lik";
+
+                            if (myObj.products[i].dtime) {
+                                pp3.innerText = myObj.products[i].dtime;
+                            } else {
+                                pp3.innerText = 0;
+                            }
+
+
+                            var img1 = document.createElement("img");
+                            img1.value = myObj.products[i].id;
+                            img1.className = "icn";
+                            img1.src = "https://png.icons8.com/ios/50/000000/up.png";
+                            var img2 = document.createElement("img");
+                            img2.value = myObj.products[i].id;
+                            img2.className = "icn dw";
+                            img2.src = "https://png.icons8.com/ios/50/000000/down.png";
+
+                            var img3 = document.createElement("img");
+                            img3.value = myObj.products[i].id;
+                            img3.className = "icn flag";
+                            img3.src = "https://png.icons8.com/ios/50/000000/disapprove.png";
+
+
+                            var but = document.createElement("button");
+                            but.className = "btn lfme";
+                            but.innerHTML = "view topic";
+                            but.value = myObj.products[i].topicid;
+                            but.onclick = function() {
+                                viewme(this.value);
+                            };
+
+                            img1.onclick = function() {
+                                sendlike(this.value);
+                            };
+
+                            img2.onclick = function() {
+                                sendislike(this.value);
+                            };
+
+                            img3.onclick = function() {
+                                flag(this.value);
+                            };
+
+
+                            outdiv4.appendChild(img1);
+                            outdiv4.appendChild(pp);
+
+                            outdiv4.appendChild(img2);
+                            outdiv4.appendChild(pp2);
+
+                            outdiv4.appendChild(img3);
+                            outdiv4.appendChild(but);
+                            outdiv4.appendChild(pp3);
+
+
+                            outdiv1.appendChild(outdiv2);
+                            outdiv1.appendChild(brk);
+                            outdiv1.appendChild(outdiv3);
+                            outdiv1.appendChild(brk);
+                            outdiv1.appendChild(outdiv4);
+                            outdiv1.appendChild(brk);
+
+                            ins.appendChild(outdiv1);
+                            // ins.appendChild(brk);
+                        }
+                    }
+                }
+            };
+            xmlhttp.open("GET", "redinsta.php?trending=hey", true);
+            xmlhttp.send();
+        }
+    </script>
+
+</body>
+
+</html>

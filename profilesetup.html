@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+    <style>
+        .topme {
+            margin-top: 3em;
+        }
+        
+        .tipme {
+            width: 100%;
+            height: 25em;
+        }
+        
+        .des {
+            margin-top: 2em;
+        }
+        
+        #ts {
+            margin-top: 1.5em;
+        }
+        
+        .tdd {
+            margin-top: 2em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row topme">
+            <span class="col-md-3 col-lg-3 col-sm-3 col-xs-3 col-xl-3"></span>
+            <img src="images/affection-baby-baby-girl-377058.jpg" id="sme" class="rounded-circle tipme col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" alt="Cinque Terre">
+            <span class="col-md-3 col-lg-3 col-sm-3 col-xs-3 col-xl-3"></span>
+
+        </div>
+        <div class="row des">
+
+            <span class="col-md-2 col-lg-2 col-sm-2 col-xl-2 col-xs-2"></span>
+
+            <div class="form-group col-md-7 col-sm-7 col-xl-7 col-lg-7">
+                <form action="upload.php" id="checkme" method="POST" enctype="multipart/form-data">
+                    <label for="comment">A little info please:</label>
+                    <textarea class="form-control" rows="8" name="descme" id="comment"></textarea>
+                    <div id="ts">
+                        <label>Choose an image:   </label>
+                        <input type="file" class="bt btn-primary" name="image" />
+                    </div>
+
+                </form>
+                <hr>
+            </div>
+        </div>
+        <div class="row tdd">
+            <span class="col-md-5 col-lg-5 col-xl-5 col-sm-5 col-xs-5"></span>
+            <button class="btn btn-light" id="subme">Create profile</button>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById("subme").onclick = function() {
+            document.getElementById("checkme").submit();
+        };
+    </script>
+</body>
+
+</html>

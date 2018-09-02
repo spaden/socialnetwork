@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Sign Up Page</title>
+    <style>
+        body {
+            background-image: url("yoo.jpg");
+            background-size: cover;
+        }
+        
+        .logme1 {
+            opacity: 0.8;
+            margin-top: 20%;
+            background-color: #D6DBDF;
+        }
+        
+        #usname {
+            width: 80%;
+            margin-top: 15%;
+            margin-bottom: 10%;
+            margin-left: 10%;
+            margin-right: 30%;
+        }
+        
+        #uspass {
+            width: 80%;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            margin-left: 10%;
+            margin-right: 30%;
+        }
+        
+        #login {
+            width: 50%;
+            margin-top: 1%;
+            padding: 1.5%;
+            margin-bottom: 15%;
+            margin-left: 25%;
+            box-shadow: 0 0 3.5px 3px #888888;
+        }
+        
+        .logme1 {
+            box-shadow: 0 0 3.5px 3px #E59866;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row logme">
+            <span class="col-md-3 col-lg-4 col-xl-4" style="height: 8em;">
+                 </span>
+            <div class="col-md-6 col-sm-12 col-xl-5 col-lg-6 logme1" id="boxme">
+                <input type="email" class="form-control usname1" id="usname" placeholder="user email" />
+                <input type="password" class="form-control" id="uspass" placeholder="password" />
+                <button class="btn btn-primary" id="login">Sign in</button>
+            </div>
+            <span class="col-md-3 col-lg-3 col-xl-3"></span>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script>
+        var usname, uspass;
+        window.onload = function() {
+            //alert(sessionStorage.getItem("usnameuid"));
+            var login = document.getElementById("login");
+            login.onclick = function() {
+                usname = document.getElementById("usname").value;
+                uspass = document.getElementById("uspass").value;
+                if (usname.length == 0 || uspass.length == 0) {
+                    alert("please fill the fields");
+                } else {
+                    senddata();
+                }
+            };
+
+        };
+
+
+        function senddata() {
+            var cml;
+            if (window.XMLHttpRequest) {
+                cml = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                cml = new ActiveXObject("Microsoft.CMLHTTP");
+            }
+            cml.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+
+                    if (myObj.info == "proceed") {
+                        sessionStorage.setItem("usnameuid", myObj.nameKid);
+                        loadme("profile.html");
+                    } else if (myObj.info == "forbid") {
+                        alert("useremail or password are invalid. Or please check your internet connectivity strength");
+                    }
+                }
+            };
+            cml.open("GET", "signuptest.php?logincheck=go&logusername=" + usname + "&loguserpass=" + uspass, true);
+            //cml.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            ///var x = 'logincheck=' + "go" + '&logusername=' + usname + '&loguserpass=' + uspass;
+            cml.send();
+        }
+
+        function loadme(newloaction) {
+            window.location.href = newloaction;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+    <style>
+        #profpic {
+            height: 20em;
+        }
+        
+        .tos {
+            margin-top: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-light">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <img src="icon.jpg" alt="Logo" style="width:40px;">
+
+            <a class="navbar-brand" href="#">theMisfits</a>
+
+        </nav>
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" id="topics" href="#">Topics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="logout" href="#">Logout</a>
+            </li>
+        </ul>
+
+    </nav>
+    <div class="container">
+        <div class="row">
+            <span class="col-md-3 col-lg-3 col-xl-3 col-sm-3 col-xs-3"></span>
+            <img class="img-thumbnail col-md-5 col-xl-5 col-lg-5" src="life_is_strange_max_cosplay-3840x2160.jpg" id="profpic" />
+            <br><br>
+        </div>
+        <div class="row tos">
+            <div class="col-md-12 col-xl-12 col-lg-12 col-sm-12">
+                <h5><i>About this website::::          </i></h5>
+                <hr>
+                <p><i id="descme">
+                    <hr>
+                    This website has features like Saraha, the popular app.
+                    <br>
+                    Post a topic about anything annonymously and see what other think about it. 
+                    <br><br>
+                    <ul>
+                         <li>Don't freak out if someone comments a negative remark, there is nothing you can do since their identity is hidden.</li>
+                         <br>
+                         <li>Share your profile link and see what others think about you. If you find it offensive, you are free to disable the link.</li>
+                         <br>
+                         <li>Create a group with full annonymity. Once created a group cannot be destroyed, and the only way anyone can access the group is through the secret link.</li>
+                     </ul>
+                </i></p>
+                <hr>
+            </div>
+
+        </div>
+
+        <div class="row tos">
+            <p class="col-md-6 col-lg-6 col-xl-6 col-sm-6">See what people think about you</p>
+            <button class="btn btn-danger col-md-3 col-lg-3" id="saraha">Check out</button>
+        </div>
+        <div class="row tos">
+            <p class="col-md-6 col-lg-6 col-xl-6 col-sm-6">Upload photos</p>
+            <button class="btn btn-danger col-md-3 col-lg-3" id="insta">upload now</button>
+        </div>
+        <div class="row tos">
+            <p class="col-md-6 col-lg-6 col-xl-6 col-sm-6">Create secret group</p>
+            <button class="btn btn-danger col-md-3 col-lg-3" id="mysecret">Create now</button>
+        </div>
+        <br>
+        <br>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function() {
+            // alme();
+            //alert(sessionStorage.getItem("usnameuid"));
+            document.getElementById("topics").onclick = function() {
+                loadme("topic.html");
+            };
+            document.getElementById("logout").onclick = function() {
+                sessionStorage.removeItem("usnameuid");
+                loadme("login.html");
+            };
+            document.getElementById("saraha").onclick = function() {
+                loadme("view.html");
+            };
+            document.getElementById("insta").onclick = function() {
+                loadme("couple.html");
+            };
+            document.getElementById("mysecret").onclick = function() {
+                loadme("creategroup.html");
+            };
+        };
+
+        function alme() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
+                    // var myObj = JSON.parse(this.responseText);
+                    //document.getElementById("descme").innerText = myObj.products[0].description;
+                    //      document.getElementById("descme").innerText = myObj.products[0].path;
+                    // document.getElementById("profpic").src = myObj.products[0].path;
+                }
+            };
+            xmlhttp.open("GET", "prof.php", true);
+            xmlhttp.send();
+        }
+
+        function loadme(newloaction) {
+            window.location.href = newloaction;
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+    <style>
+        #myImg {
+            width: 6em;
+            height: 10em;
+            margin-bottom: 5em;
+        }
+        
+        #myImg1 {
+            width: 6em;
+            height: 10em;
+            margin-bottom: 5em;
+        }
+        
+        .tpp {
+            margin-top: 10em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container tpp">
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4">
+                <img id="myImg" src="#" alt="your image" />
+            </div>
+            <span class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4"></span>
+            <div class="col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4">
+                <img id="myImg1" src="#" alt="your image" />
+            </div>
+        </div>
+        <div class="row">
+            <form action="cpupload.php" id="checkme" method="POST" enctype="multipart/form-data">
+
+
+                <input class="btn btn-primary" type='file' name="image1" onchange="readURL(this);" />
+
+
+
+                <input class="btn btn-primary" type='file' name="image2" onchange="readURLTWO(this);" />
+
+
+            </form>
+        </div>
+        <br><br><br>
+        <div class="row tdd">
+            <span class="col-md-3 col-lg-3 col-xl-3 col-sm-3 col-xs-3"></span>
+            <button class="btn btn-danger col-md-5 col-lg-5 col-xl-5 col-sm-5 col-xs-5" id="subme">Upload</button>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js "></script>
+    <script>
+        document.getElementById("subme").onclick = function() {
+            //alert("called");
+            document.getElementById("checkme").submit();
+        };
+
+        function readURL(input) {
+            // alert("called1");
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#myImg')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURLTWO(input) {
+            // alert("called2");
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#myImg1')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+
+</html>

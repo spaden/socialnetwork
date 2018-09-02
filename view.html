@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+    <style>
+        .hey {
+            background-color: #7DCEA0;
+        }
+        
+        #bhg {
+            height: 1em;
+            width: 1em;
+        }
+        
+        .lfme {
+            margin-left: 1em;
+        }
+        
+        #mylink {
+            margin-bottom: 5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid hey">
+        <div class="row">
+            <span class="col-md-1 col-lg-1 col-xl-1 col-sm-1"></span>
+            <div class="col-md-10 col-lg-10 col-xl-10 col-sm-10">
+                <br>
+                <i><h5>Don't freak out this is what your friends think about you!</h5></i>
+                <hr>
+                <i>.  .  .  .  .  .  .  ........       You can disable this option if you find it too offensive</i>
+                <hr>
+            </div>
+
+            <span class="col-md-1 col-lg-1 col-xl-1 col-sm-1"></span>
+        </div>
+    </div>
+    <br><br><br>
+
+    <div class="container">
+        <div class="row">
+            <p>Your personal link to share with your friends </p>
+            <a class="col-md-7 col-sm-7 col-lg-7 col-xl-7 col-xs-7" href="#" id="mylink"></a>
+
+        </div>
+        <div class="row">
+            <span class="col-md-2 col-lg-2 col-xl-2 col-sm-2"></span>
+            <button class="btn btn-danger col-md-7 col-lg-7 col-xl-7 col-sm-7 col-xs-7" id="disme">Disable</button>
+            <span class="col-md-2 col-lg-2 col-xl-2 col-sm-2"></span>
+
+        </div>
+        <div class="row">
+            <span class="col-md-1 col-lg-1 col-xl-1 col-sm-1"></span>
+            <div class="col-md-10 col-lg-10 col-xl-10 col-sm-10 col-xs-10" id="insert">
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script>
+        var myname;
+        window.onload = function() {
+            myname = sessionStorage.getItem("usnameuid");
+            // alert(myname);
+            document.getElementById("mylink").href = "lightme.php?usname=" + myname;
+            document.getElementById("mylink").innerHTML = "lightme.php?usname=" + myname;
+            flagme();
+            checkCookie();
+            var x = getCookie("disable");
+            //document.getElementById("disme").innerText = x;
+
+            document.getElementById("disme").onclick = function() {
+                dsme("kalyan");
+                //document.getElementById("disme").innerText = "Disabled";
+                setCookie("disable", "Disabled", 20);
+                var x = getCookie("disable");
+                //alert(x);
+            };
+        };
+
+
+
+        function flagme() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var ins = document.getElementById("insert");
+                    ins.appendChild(document.createElement("br"));
+
+                    var myObj = JSON.parse(this.responseText);
+                    for (var i = 0; i < myObj.products.length; i++) {
+                        var cd = document.createElement("div");
+                        cd.className = "card bg-light";
+                        var dc = document.createElement("div");
+                        dc.className = "card-body";
+                        var dt = document.createElement("p");
+                        dt.innerText = myObj.products[i].dt;
+                        var tc = document.createElement("i");
+                        tc.innerText = myObj.products[i].msg;
+                        var bt = document.createElement("img");
+                        bt.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHFSURBVGhD7ZlLSsRAFEXboYL4GTvXoQ5cgDgSQbegoANB0C04dgkq6My9+FmJ7kDRe4ULTXiVpKpeJRHqwBl0aCp1Ov/0rFKpVCr/hV14CTf+PvmxBM/h0d+nwpzCb/gDP+EO9GANvkGOS+/gAizCfIT0iGlGyHvoHmNFyA+YGhOKkA/QLaYtQqbEdEVIlxge2F/QWkHTmJi+EfIaZnEBrYFD9omJjaDPMAueYjk5a/CQbTEpEdytD2E2nBTPTtZKQjJmG86TEsHdmseoG7kxk4gQqTF7cDIRIiUm1uIRomTMYBGiRAwjTuDgeMaMFiE8YkaPEDkxk4kQ+9CaaJc3cDKsw3doTbRLbklu0dHJiZCjx3hEyLYbzaIwIva2o8vBY0pEyMFiSkbI4jEpEbxO8BQbe51hTPN5xoXU5wld7PgLjx6TGyEYw8lZ3w/pFrMIPSJEaswmzOIMWoOH7HPvlBLzBLM4htbAln0iRGzMLcyCb/j4ps8afN6YCNE35hWuwGy6YlIiBA/ktpgXuArdYAzfjjdXlBMhQjHuEYIx/N9CK/KIEM2YYhGCMVeQ72IPuMCRLfgIeWAvc0GlUqlUKsMwm/0CEZ+iIzDFU68AAAAASUVORK5CYII";
+                        bt.value = myObj.products[i].id;
+                        bt.id = "bhg";
+                        bt.onclick = function() {
+                            dltmsg(this.value);
+                        };
+                        var dd = document.createElement("div");
+                        dd.className = "lfme";
+                        dd.appendChild(bt);
+                        dc.appendChild(dt);
+                        dc.appendChild(tc);
+
+                        cd.appendChild(dc);
+
+                        cd.appendChild(dd);
+
+                        ins.appendChild(cd);
+                        //ins.appendChild(bt);
+
+                        ins.appendChild(document.createElement("br"));
+
+
+                    }
+                }
+            };
+            xmlhttp.open("GET", "puresp.php?tme=hitme&usname=" + myname, true);
+            xmlhttp.send();
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var user = getCookie("disable");
+            if (user != "") {
+                //alert("disabled");
+                // alert("Welcome again " + user);
+            } else {
+                setCookie("disable", "enabled", 20);
+            }
+        }
+
+        function dsme(usname) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.response);
+                }
+            };
+            xmlhttp.open("GET", "puresp.php?dsme=hey" + "&usname=" + myname, true);
+            xmlhttp.send();
+        }
+
+        function dltmsg(id) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("insert").innerHTML = " ";
+                    flagme();
+                }
+            };
+            xmlhttp.open("GET", "puresp.php?del=" + id, true);
+            xmlhttp.send();
+        }
+    </script>
+</body>
+
+</html>
