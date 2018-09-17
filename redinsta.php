@@ -11,9 +11,11 @@
     public function pstopic(){
         $tpname=mysqli_real_escape_string($this->conn, $_REQUEST["tpnm"]);
         $tpdesc=mysqli_real_escape_string($this->conn, $_REQUEST["tpdsc"]);
+        $usname=mysqli_real_escape_string($this->conn, $_REQUEST["usname"]);
         $dt=date('Y-m-d_H:i:s');
         $tpid=$tpname.uniqid()."___2222".$dt;
-        $this->how="INSERT INTO antopic (topicname,topicdec,topicid,dtime) VALUES ('$tpname','$tpdesc','$tpid','$dt')";
+        $flg=0;
+        $this->how="INSERT INTO antopic (topicname,topicdec,topicid,flag,dtime,usname) VALUES ('$tpname','$tpdesc','$tpid','$flg','$dt','$usname')";
         $this->res=mysqli_query($this->conn,$this->how);
         if($this->res){
             echo "topic added successfully, check out how it's doing out there";
@@ -22,13 +24,13 @@
 
     public function getopic(){
        // $tpid=$_REQUEST["tpid"];
-        $this->how="SELECT  topicid,id,topicname,topicdec,likes,dislikes,dtime from antopic";
+        $this->how="SELECT topicid,id,topicname,topicdec,likes,dislikes,dtime,usname from antopic";
         $this->res=mysqli_query($this->conn,$this->how);
         $response=array();
         $response["products"]=array();
         if($this->res){
             $response["info"]="success";
-             while(list($topicid,$id,$topicname,$topicdesc,$likes,$dislikes,$dtime)=$this->res->fetch_row()){
+             while(list($topicid,$id,$topicname,$topicdesc,$likes,$dislikes,$dtime,$usname1)=$this->res->fetch_row()){
                  $products=array();
                  $products["topicid"]=$topicid;
                  $products["id"]=$id;
@@ -37,6 +39,7 @@
                  $products["likes"]=$likes;
                  $products["dislikes"]=$dislikes;
                  $products["dtime"]=$dtime;
+                 $products["usname"]=$usname1;
                  array_push($response["products"],$products);
              }
              echo json_encode($response);
@@ -70,7 +73,7 @@
     }
     public function mntopic(){
         $tpid=$_REQUEST["mntopic"];
-        $this->how="SELECT id,topicname,topicdec,likes,dislikes,dtime from antopic where topicid='$tpid'";
+        $this->how="SELECT id,topicname,topicdec,likes,dislikes,dtime from antopic where topicid='$tpid' AND flag=0";
         $this->res=mysqli_query($this->conn,$this->how);
         $response=array();
         $response["products"]=array();
@@ -94,9 +97,10 @@
     }
     public function threadtp(){
         $topicid=$_REQUEST["thrid"];
+        $usname=mysqli_real_escape_string($this->conn, $_REQUEST["usname"]);
         $tpname=mysqli_real_escape_string($this->conn, $_REQUEST["thrcm"]);
         $dt=date('Y-m-d_H:i:s');
-        $this->how="INSERT INTO sptopic (topicid,tpbranch,dtime) VALUES ('$topicid','$tpname','$dt')";
+        $this->how="INSERT INTO sptopic (topicid,tpbranch,flag,dtime,usname) VALUES ('$topicid','$tpname',0,'$dt','$usname')";
         $this->res=mysqli_query($this->conn,$this->how);
         if($this->res){
             echo "added";
@@ -106,7 +110,7 @@
     public function gtsptopic(){
         $tpid=mysqli_real_escape_string($this->conn, $_REQUEST["gtspid"]);
 
-        $this->how="SELECT id,tpbranch,likes,dislikes,dtime from sptopic where topicid='$tpid'";
+        $this->how="SELECT id,tpbranch,likes,dislikes,dtime from sptopic where topicid='$tpid' AND flag=0";
         $this->res=mysqli_query($this->conn,$this->how);
         $response=array();
         $response["products"]=array();

@@ -156,6 +156,7 @@
     <script>
         var shfm, hdfm, addtp, tstmesg, newtopic;
         window.onload = function() {
+            npmessg();
             //alert("called");
             getme();
             document.getElementById("trending").onclick = function() {
@@ -189,12 +190,13 @@
         };
 
         function postp() {
+            var aname = sessionStorage.getItem("usnameuid");
             var tpnm = tstmesg.value;
             var tpdsc = newtopic.value;
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert(this.responseText);
+                    //alert(this.responseText);
                     hdfm.style.display = "none";
                     addtp.style.display = "none";
                     shfm.style.display = "block";
@@ -202,9 +204,10 @@
                     var ins = document.getElementById("insert");
                     ins.innerHTML = " ";
                     getme();
+                    alert("your comment will be reviewed by one of our nerd and will be checked for offensiveness");
                 }
             };
-            xmlhttp.open("GET", "redinsta.php?tpnm=" + tpnm + "&tpdsc=" + tpdsc, true);
+            xmlhttp.open("GET", "redinsta.php?tpnm=" + tpnm + "&tpdsc=" + tpdsc + "&usname=" + aname, true);
             xmlhttp.send();
         }
 
@@ -249,8 +252,8 @@
                             var pp3 = document.createElement("span");
                             pp3.className = "lik";
 
-                            if (myObj.products[i].dtime) {
-                                pp3.innerText = myObj.products[i].dtime;
+                            if (myObj.products[i].usname) {
+                                pp3.innerText = myObj.products[i].usname;
                             } else {
                                 pp3.innerText = 0;
                             }
@@ -496,6 +499,26 @@
             };
             xmlhttp.open("GET", "redinsta.php?trending=hey", true);
             xmlhttp.send();
+        }
+
+        function npmessg() {
+            testme();
+            heyme();
+            setTimeout(npmessg, 20000);
+        }
+
+        function testme() {
+            var ins = document.getElementById("insert");
+            ins.innerHTML = " ";
+            ins.appendChild(document.createElement("br"));
+            ins.appendChild(document.createElement("br"));
+
+
+        }
+
+        function heyme() {
+            getme();
+            //alert("hey");
         }
     </script>
 

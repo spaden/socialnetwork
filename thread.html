@@ -11,11 +11,15 @@
     <title>Title</title>
     <style>
         .tpp {
-            margin-top: 5em;
+            margin-top: 3em;
         }
         
         .out1 {
             box-shadow: 0 0 3px #888888;
+        }
+        
+        .ohio {
+            box-shadow: 0 1px 2px #888888;
         }
         
         .icn {
@@ -81,7 +85,7 @@
             </li>
         </ul>
     </nav>
-    <div class="container fixed-top tpp">
+    <div class="container tpp">
         <div class="row">
             <div class="out1 col-md-12 col-lg-12 col-xl-12 col-sm-12">
 
@@ -113,6 +117,10 @@
                 </div>
 
             </div>
+            <div class="row">
+                <br><br><br><br><br>
+            </div>
+
         </div>
         <div class="container fixed-bottom">
             <div class="row" id="shfm">
@@ -147,6 +155,7 @@
             var lik, dik, flag;
             var topicid;
             window.onload = function() {
+                npmessg();
                 // alert(sessionStorage.getItem("topicid"));
                 getcomm(sessionStorage.getItem("topicid"));
                 lik = document.getElementById("btlike");
@@ -231,19 +240,20 @@
 
             function addpt(topicid) {
                 var xmlhttp = new XMLHttpRequest();
+                var aname = sessionStorage.getItem("usnameuid");
                 var message = document.getElementById("comment").value;
                 var ins = document.getElementById("insert");
 
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        //alert(this.responseText);
                         ins.innerHTML = " ";
                         ins.appendChild(document.createElement("br"));
                         ins.appendChild(document.createElement("br"));
                         getcomm(sessionStorage.getItem("topicid"));
+                        alert("your comment will be reviewed by one of our nerd and posted back in here");
                     }
                 };
-                xmlhttp.open("GET", "redinsta.php?thrid=" + topicid + "&thrcm=" + message, true);
+                xmlhttp.open("GET", "redinsta.php?thrid=" + topicid + "&thrcm=" + message + "&usname=" + aname, true);
                 xmlhttp.send();
             }
 
@@ -251,13 +261,14 @@
                 var xmlhttp = new XMLHttpRequest();
                 /// var message = document.getElementById("comment").value;
                 var ins = document.getElementById("insert");
+
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         //alert(this.responseText);
                         var myObj = JSON.parse(this.responseText);
                         for (var i = 0; i < myObj.products.length; i++) {
                             var card = document.createElement("div");
-                            card.className = "card";
+                            card.className = "card ohio";
                             var cardbody = document.createElement("div");
                             cardbody.className = "card-body";
                             var pp = document.createElement("p");
@@ -391,6 +402,25 @@
                 };
                 xmlhttp.open("GET", "redinsta.php?cmflid=" + id, true);
                 xmlhttp.send();
+            }
+
+            function npmessg() {
+                testme();
+                heyme();
+                setTimeout(npmessg, 20000);
+            }
+
+            function testme() {
+                var ins = document.getElementById("insert");
+                ins.innerHTML = " ";
+                ins.appendChild(document.createElement("br"));
+                ins.appendChild(document.createElement("br"));
+
+            }
+
+            function heyme() {
+                getcomm(topicid);
+                //alert("hey");
             }
         </script>
 </body>
